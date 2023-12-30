@@ -16,6 +16,19 @@ def print_commands():
     print(f"6. {Fore.RED}Execute custom query{Style.RESET_ALL}")
     print(f"7. {Fore.RED}Exit{Style.RESET_ALL}")
 
+def execute_custom_query(db):
+    print("\nTables:")
+    tables = db.get_table_names()
+    for table in tables:
+        print(f"{table}")
+
+    user_query = input(f"\nEnter your custom SQL query:{Fore.GREEN} ")
+    result = db.execute_custom_query(user_query)
+    
+    if result is not None:
+        print(f"\n{Fore.BLUE}Query Result:{Style.RESET_ALL}")
+        for row in result:
+            print(row)
 
 # Instantiate the Database class
 db = Database("app.db")
@@ -47,7 +60,20 @@ while True:
         user_id = input(f"{Fore.GREEN}Enter user ID to delete:{Style.RESET_ALL} ")
         db.delete_user(user_id)
         print(f"\n{Fore.GREEN}User deleted successfully!{Style.RESET_ALL}")
-   
+
+    elif user_input == "5":
+        user_id = input(f"{Fore.GREEN}Enter user ID to fetch orders:{Style.RESET_ALL} ")
+        orders = db.fetch_orders_by_user(user_id)
+        print(f"\n{Fore.BLUE}Orders for User:{Style.RESET_ALL}")
+        for order in orders:
+            print(f"Order ID: {order[0]}, Product: {order[2]}, Quantity: {order[3]}")
+
+    elif user_input == "6":
+        execute_custom_query(db)
+
+    elif user_input == "7":
+        print(f"\n{Fore.RED}Exiting the program. Goodbye!{Style.RESET_ALL}")
+        break
 
     else:
         print(f"\n{Fore.RED}Invalid command. Please enter a valid command number.{Style.RESET_ALL}")
