@@ -1,0 +1,25 @@
+# Virtual Environment
+venv/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Python packaging
+*.egg-info/
+dist/
+build/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Logs and databases
+# *.log
+# *.sqlite
+# *.db
+
+# Output files
+# *.csv
+# *.xlsx
