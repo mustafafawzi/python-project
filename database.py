@@ -1,4 +1,5 @@
 # database.py
+
 import sqlite3
 
 class Database:
@@ -10,10 +11,28 @@ class Database:
         self.cursor.execute(query)
         self.conn.commit()
 
-    # Add other database-related methods as needed
-        
-    def select_all_users(self):
-        query = "SELECT * FROM users"
+    def fetch_all(self, table):
+        query = f"SELECT * FROM {table}"
         self.cursor.execute(query)
         rows = self.cursor.fetchall()
         return rows
+
+    def insert_user(self, name, email):
+        query = f"INSERT INTO users (name, email) VALUES ('{name}', '{email}')"
+        self.execute_query(query)
+
+    def update_user_email(self, user_id, new_email):
+        query = f"UPDATE users SET email = '{new_email}' WHERE id = {user_id}"
+        self.execute_query(query)
+
+    def delete_user(self, user_id):
+        query = f"DELETE FROM users WHERE id = {user_id}"
+        self.execute_query(query)
+
+    def fetch_orders_by_user(self, user_id):
+        query = f"SELECT * FROM orders WHERE user_id = {user_id}"
+        self.cursor.execute(query)
+        orders = self.cursor.fetchall()
+        return orders
+
+
