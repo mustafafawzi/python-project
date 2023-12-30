@@ -1,11 +1,12 @@
-# database.py
-
 import sqlite3
+import os
 
 class Database:
     def __init__(self, db_path):
+        print("Attempting to connect to database at:", db_path)
         self.conn = sqlite3.connect(db_path)
         self.cursor = self.conn.cursor()
+        print("Connection successful!")
 
     def execute_query(self, query):
         self.cursor.execute(query)
