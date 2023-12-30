@@ -35,4 +35,16 @@ class Database:
         orders = self.cursor.fetchall()
         return orders
 
+    def get_table_names(self):
+        query = "SELECT name FROM sqlite_master WHERE type='table';"
+        self.cursor.execute(query)
+        tables = self.cursor.fetchall()
+        return [table[0] for table in tables]
 
+    def execute_custom_query(self, query):
+        try:
+            self.cursor.execute(query)
+            result = self.cursor.fetchall()
+            return result
+        except Exception as e:
+            return f"Error executing query: {e}"
